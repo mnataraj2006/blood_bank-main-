@@ -1,0 +1,501 @@
+.container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+}
+.header {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.logoIcon {
+  width: 2rem;
+  height: 2rem;
+  background-color: #3b82f6;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+.navLink {
+  color: #6b7280;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+.navLinkActive {
+  color: #3b82f6;
+}
+.authButtons {
+  display: flex;
+  gap: 0.75rem;
+}
+.loginBtn {
+  color: #6b7280;
+  border: none;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.signUpBtn {
+  background-color: #14b8a6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.main {
+  max-width: 28rem;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+.formCard {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+.formHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.formTitle {
+  font-size: 1.875rem;
+  font-weight: 300;
+  color: #60a5fa;
+  margin-bottom: 0.5rem;
+}
+.formSubtitle {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  outline: none;
+  box-sizing: border-box;
+}
+.input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+.dropdown {
+  position: relative;
+}
+.dropdownBtn {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: white;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+  transition: all 0.2s;
+}
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  margin-top: 0.25rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+.dropdownItem {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.submitBtn {
+  width: 100%;
+  background-color: #14b8a6;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.windowsNotice {
+  margin-top: 2rem;
+  text-align: right;
+}
+.windowsCard {
+  display: inline-block;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+.windowsTitle {
+  font-weight: 500;
+  color: #9ca3af;
+  margin-bottom: 0.25rem;
+}
+/* ===== General Reset ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display:contents;
+  background: #f9fafb;
+  color: #333;
+}
+
+.container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===== Header ===== */
+.header {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  position: relative;
+}
+
+.authButtons {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 12px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #14b8a6;
+}
+
+.logoIcon {
+  background: #14b8a6;
+  padding: 6px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.logoText {
+  font-size: 20px;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  gap: 12px;
+}
+
+.navLink {
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #555;
+}
+
+.navLink:hover,
+.navLinkActive {
+  color: #14b8a6;
+  border-bottom: 2px solid #14b8a6;
+  padding-bottom: 2px;
+}
+
+/* Auth Buttons */
+.authButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.loginBtn {
+  background: none;
+  border: 1px solid #14b8a6;
+  color: #14b8a6;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.loginBtn:hover {
+  background: #14b8a6;
+  color: white;
+}
+
+.signUpBtn {
+  background: #14b8a6;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(to right, #14b8a6, #0f766e);
+  color: white;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.heroButtons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.ctaBtn {
+  background:transparent;
+  color: #ffffff;
+  padding: 12px 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-right: 0.5cm;
+}
+
+.ctaBtn:hover {
+  background: #f3f4f6;
+  color: #14b8a6;
+}
+
+.ctaBtnSecondary {
+  background: transparent;
+  color: white;
+  padding: 12px 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ctaBtnSecondary:hover {
+  background: white;
+  color: #14b8a6;
+}
+
+/* ===== Stats Section ===== */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 50px 0;
+  flex-wrap: wrap;
+}
+
+.statCard {
+  background: white !important;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  width: 200px;
+}
+
+.statCard h2 {
+  font-size: 32px;
+  color: #000000 !important;
+  margin: 0;
+  text-align: center !important;
+}
+
+.statCard p{
+  color: black;
+}
+/* ===== How It Works ===== */
+.howItWorks {
+  text-align: center !important;
+  padding: 60px 20px;
+  color:#14b8a6;
+}
+
+.howItWorks h2 {
+  color: #14b8a6 !important;
+  margin-bottom: 20px;
+  text-align: center !important;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.step {
+  background: #f3f4f6;
+  padding: 20px;
+  border-radius: 12px;
+  width: 180px;
+}
+
+.step h3 {
+  font-size: 24px;
+  color: #14b8a6;
+}
+
+.step p {
+  color: #000000;
+  font-size: 14px;
+}
+/* ===== Why Donate ===== */
+.whyDonate {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f9fafb;
+  margin-bottom: 1cm;
+}
+
+.whyDonate h2 {
+  color: #14b8a6 !important;
+  text-align: center !important;
+}
+
+.whyDonate{
+  color: #000000;
+}
+/* ===== Testimonials ===== */
+.testimonials {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.testimonialCard {
+  background: rgb(255, 255, 255);
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 0px;
+}
+
+.testimonialCard p {
+  font-style: italic;
+  color: #555;
+}
+ .testimonials h2{
+  color: #14b8a6 !important;
+  text-align: center !important;
+ }
+/* ===== CTA Banner ===== */
+.ctaBanner {
+  text-align: center;
+  padding: 60px 20px;
+  background: #14b8a6;
+  color: white;
+}
+
+.ctaBanner h2 {
+  margin-bottom: 20px;
+  text-align: center !important;
+}
+
+.ctaBanner .signUpBtn {
+  font-size: 18px;
+  padding: 12px 24px;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #0f766e;
+  color: white;
+  font-size: 14px;
+}

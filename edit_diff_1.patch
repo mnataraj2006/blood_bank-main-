@@ -1,0 +1,311 @@
+const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  // Handlers to switch tabs
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const [donorProfile, setDonorProfile] = useState(null);
+  const [donationCount, setDonationCount] = useState(0);
+  const [donationHistory, setDonationHistory] = useState([]);
+  const [bloodRequests, setBloodRequests] = useState([]);
+  const [allBloodRequests, setAllBloodRequests] = useState([]);
+  const [responding, setResponding] = useState(null);
+
+  const displayName = JSON.parse(localStorage.getItem("user"))?.name || "User";
+  const displayBloodGroup = JSON.parse(localStorage.getItem("user"))?.blood_group || "Not specified";
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (!storedUser || !storedUser.id) {
+      console.error("❌ User not found in localStorage");
+      return;
+    }
+    setDonorProfile(storedUser);
+    const userId = storedUser.id;
+
+    // Fetch donation count
+    axios.get(`http://localhost:5000/donations/count/${userId}`)
+      .then(res => setDonationCount(res.data.count))
+      .catch(err => console.error("Error fetching donation count", err));
+
+    // Fetch donation history
+    axios.get(`http://localhost:5000/donations/history/${userId}`)
+      .then(res => setDonationHistory(res.data))
+      .catch(err => console.error("Error fetching donation history", err));
+
+    // Fetch latest donation date
+    axios.get(`http://localhost:5000/donations/latest/${userId}`)
+      .then(res => {
+        if (res.data.lastDonation) {
+          const lastDonation = new Date(res.data.lastDonation);
+          const nextEligible = new Date(lastDonation);
+          nextEligible.setMonth(nextEligible.getMonth() + 3); // add 3 months
+
+          setDonorProfile(prev => ({
+            ...prev,
+            lastDonation: lastDonation,
+            nextEligibleDate: nextEligible
+          }));
+        }
+      })
+      .catch(err => console.error("Error fetching latest donation", err));
+
+    // Fetch blood requests matching donor's blood group
+    axios.get(`http://localhost:5000/requests/donor/${userId}`)
+      .then(res => setBloodRequests(res.data))
+      .catch(err => console.error("Error fetching blood requests", err));
+
+    // Fetch all pending blood requests
+    axios.get(`http://localhost:5000/requests/all/pending`)
+      .then(res => setAllBloodRequests(res.data))
+      .catch(err => console.error("Error fetching all blood requests", err));
+
+  }, []);
+
+  const handleRespond = async (requestId) => {
+    if (!donorProfile || !donorProfile.id) {
+      alert("User not logged in");
+      return;
+    }
+    setResponding(requestId);
+    try {
+      const response = await axios.post("http://localhost:5000/responses", {
+        donorId: donorProfile.id,
+        requestId
+      });
+      alert(response.data.message);
+      // Optionally refresh requests or responses here
+    } catch (error) {
+      console.error("Error responding to request", error);
+      alert("Failed to respond to request");
+    } finally {
+      setResponding(null);
+    }
+  };
+
+  const handleConfirmAttendance = async (appointmentId) => {
+    if (!donorProfile || !donorProfile.id) {
+      alert("User not logged in");
+      return;
+    }
+    try {
+      // The backend PATCH endpoint does not expect donorId in body, so remove it
+      const response = await axios.patch(`http://localhost:5000/appointments/${appointmentId}/confirm`);
+      alert("Attendance confirmed successfully!");
+      // Optionally refresh appointments here
+    } catch (error) {
+      console.error("Error confirming attendance", error);
+      alert("Failed to confirm attendance");
+    }
+  };
+=======
+const DonorDashboard = () => {
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  // Handlers to switch tabs
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const [donorProfile, setDonorProfile] = useState(null);
+  const [donationCount, setDonationCount] = useState(0);
+  const [donationHistory, setDonationHistory] = useState([]);
+  const [bloodRequests, setBloodRequests] = useState([]);
+  const [allBloodRequests, setAllBloodRequests] = useState([]);
+  const [responding, setResponding] = useState(null);
+  const [appointments, setAppointments] = useState([]);
+
+  const displayName = JSON.parse(localStorage.getItem("user"))?.name || "User";
+  const displayBloodGroup = JSON.parse(localStorage.getItem("user"))?.blood_group || "Not specified";
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (!storedUser || !storedUser.id) {
+      console.error("❌ User not found in localStorage");
+    <div className="blood-request-container">
+      <h2>🩸 Request Blood</h2>
+      <form className="blood-request-form" onSubmit={handleSubmit}>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Patient Name"
+            className="blood-request-input"
+            value={formData.patientName}
+            onChange={(e) => setFormData({ ...formData, patientName: e.target.value })}
+            required
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="number"
+            placeholder="Patient Age"
+            className="blood-request-input"
+            value={formData.patientAge}
+            onChange={(e) => setFormData({ ...formData, patientAge: e.target.value })}
+            required
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <select
+            className="blood-request-select"
+            value={formData.patientGender}
+            onChange={(e) => setFormData({ ...formData, patientGender: e.target.value })}
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Prefer not to say</option>
+          </select>
+        </div>
+        <div className="blood-request-form-group">
+          <select
+            className="blood-request-select"
+            value={formData.bloodGroup}
+            onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
+            required
+          >
+            <option value="">Select Blood Group</option>
+            {["A+","A-","B+","B-","AB+","AB-","O+","O-"].map((group) => (
+              <option key={group} value={group}>
+                {group}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="number"
+            placeholder="Units Needed"
+            className="blood-request-input"
+            value={formData.unitsNeeded}
+            onChange={(e) => setFormData({ ...formData, unitsNeeded: e.target.value })}
+            required
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <select
+            className="blood-request-select"
+            value={formData.urgency}
+            onChange={(e) => setFormData({ ...formData, urgency: e.target.value })}
+          >
+            <option value="">Select Urgency</option>
+            <option value="critical">Critical</option>
+            <option value="urgent">Urgent</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="routine">Routine</option>
+          </select>
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Purpose"
+            className="blood-request-input"
+            value={formData.purpose}
+            onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Hospital Name"
+            className="blood-request-input"
+            value={formData.hospitalName}
+            onChange={(e) => setFormData({ ...formData, hospitalName: e.target.value })}
+            required
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Hospital Address"
+            className="blood-request-input"
+            value={formData.hospitalAddress}
+            onChange={(e) => setFormData({ ...formData, hospitalAddress: e.target.value })}
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Doctor Name"
+            className="blood-request-input"
+            value={formData.doctorName}
+            onChange={(e) => setFormData({ ...formData, doctorName: e.target.value })}
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Medical Condition"
+            className="blood-request-input"
+            value={formData.medicalCondition}
+            onChange={(e) => setFormData({ ...formData, medicalCondition: e.target.value })}
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Contact Person"
+            className="blood-request-input"
+            value={formData.contactPerson}
+            onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Contact Number"
+            className="blood-request-input"
+            value={formData.contactNumber}
+            onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
+            required
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="text"
+            placeholder="Hemoglobin Level (optional)"
+            className="blood-request-input"
+            value={formData.hemoglobinLevel}
+            onChange={(e) => setFormData({ ...formData, hemoglobinLevel: e.target.value })}
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="date"
+            className="blood-request-input"
+            value={formData.preferredDonationDate}
+            onChange={(e) => setFormData({ ...formData, preferredDonationDate: e.target.value })}
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <textarea
+            placeholder="Additional Notes"
+            className="blood-request-textarea"
+            value={formData.additionalNotes}
+            onChange={(e) => setFormData({ ...formData, additionalNotes: e.target.value })}
+          />
+        </div>
+        <div className="blood-request-form-group">
+          <input
+            type="email"
+            placeholder="Email (optional)"
+            className="blood-request-input"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          />
+        </div>
+        <button
+          type="submit"
+          className={`blood-request-submit-button${isLoading ? " loading" : ""}`}
+          disabled={isLoading}
+        >
+          {isLoading ? "Submitting..." : "Submit Request"}
+        </button>
+      </form>
+    </div>
+  );
