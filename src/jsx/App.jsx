@@ -30,9 +30,9 @@ axios.interceptors.response.use(
       try {
         const userData = JSON.parse(localStorage.getItem('user'));
         if (userData?.refreshToken) {
-          const refreshResponse = await axios.post('http://localhost:5000/auth/refresh', {
-            refreshToken: userData.refreshToken
-          });
+        const refreshResponse = await axios.post(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/auth/refresh`, {
+          refreshToken: userData.refreshToken
+        });
           const newAccessToken = refreshResponse.data.accessToken;
           // Update localStorage with new token
           userData.token = newAccessToken;

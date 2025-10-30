@@ -34,7 +34,7 @@ const BookDonationSlot = () => {
         phone: storedUser.phoneNumber || '' // Assuming phoneNumber might be in storedUser
       }));
       // Fetch blood requests for this donor
-      axios.get(`http://localhost:5000/requests/donor/${storedUser.id}`)
+      axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/donor/${storedUser.id}`)
         .then(res => setBloodRequests(res.data))
         .catch(err => console.error('Error fetching blood requests:', err));
     } else {
@@ -43,7 +43,7 @@ const BookDonationSlot = () => {
     }
 
     // Fetch verified hospitals for donor to select
-    axios.get('http://localhost:5000/hospitals/verified')
+    axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/hospitals/verified`)
       .then(res => {
         setHospitals(res.data);
         if (res.data.length > 0) {
@@ -94,7 +94,7 @@ const BookDonationSlot = () => {
 
     try {
       const token = user.token; // Assuming token is in localStorage user
-      const response = await axios.post('http://localhost:5000/appointments/book', appointmentData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/appointments/book`, appointmentData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('Blood donation slot booked successfully!');

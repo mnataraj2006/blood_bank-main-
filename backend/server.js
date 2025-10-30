@@ -26,7 +26,9 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
+  origin: process.env.NODE_ENV === 'production'
+    ? ['https://blood-bank-frontend.onrender.com'] // Production frontend URL
+    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
   credentials: true
 }));
 app.use(express.json());
@@ -259,7 +261,10 @@ app.get('/auth/google/callback',
     const refreshToken = generateRefreshToken(req.user);
 
     // Redirect to frontend with tokens
-    res.redirect(`http://localhost:3000/oauth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}&user=${encodeURIComponent(JSON.stringify({
+    const frontendUrl = process.env.NODE_ENV === 'production'
+      ? 'https://blood-bank-frontend.onrender.com'
+      : 'http://localhost:3000';
+    res.redirect(`${frontendUrl}/oauth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}&user=${encodeURIComponent(JSON.stringify({
       id: req.user._id,
       name: req.user.fullName,
       email: req.user.email,
@@ -278,7 +283,10 @@ app.get('/auth/facebook/callback',
     const accessToken = generateAccessToken(req.user);
     const refreshToken = generateRefreshToken(req.user);
 
-    res.redirect(`http://localhost:3000/oauth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}&user=${encodeURIComponent(JSON.stringify({
+    const frontendUrl = process.env.NODE_ENV === 'production'
+      ? 'https://blood-bank-frontend.onrender.com'
+      : 'http://localhost:3000';
+    res.redirect(`${frontendUrl}/oauth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}&user=${encodeURIComponent(JSON.stringify({
       id: req.user._id,
       name: req.user.fullName,
       email: req.user.email,
@@ -1440,7 +1448,7 @@ app.get("/api/recipients/:id", async (req, res) => {
 
 
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // GET /admin/matches - get donor-recipient matches for admin dashboard
 app.get('/admin/matches', async (req, res) => {

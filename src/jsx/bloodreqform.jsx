@@ -32,7 +32,7 @@ function BloodRequestForm() {
   useEffect(() => {
     const fetchHospitals = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/hospitals/verified");
+        const response = await axios.get("${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/hospitals/verified");
         setHospitals(response.data);
       } catch (error) {
         console.error("Error fetching hospitals:", error);
@@ -92,7 +92,7 @@ function BloodRequestForm() {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "http://localhost:5000/requests",
+        "${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/requests",
         requestData
       );
       alert("✅ Blood request submitted successfully!");

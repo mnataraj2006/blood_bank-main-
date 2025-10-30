@@ -101,38 +101,38 @@ const AdminDashboard = () => {
       setLoading(true);
       
       // Fetch stats
-      const statsRes = await axios.get('http://localhost:5000/admin/stats');
+      const statsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/stats`);
       setStats(statsRes.data);
 
       // Fetch users
-      const usersRes = await axios.get('http://localhost:5000/admin/users');
+      const usersRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/users`);
       setUsers(usersRes.data);
 
       // Fetch donations
-      const donationsRes = await axios.get('http://localhost:5000/admin/donations');
+      const donationsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/donations`);
       setDonations(donationsRes.data);
 
       // Fetch requests
-      const requestsRes = await axios.get('http://localhost:5000/admin/requests');
+      const requestsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/requests`);
       setRequests(requestsRes.data);
 
       // Fetch hospitals
-      const hospitalsRes = await axios.get('http://localhost:5000/admin/hospitals');
+      const hospitalsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/hospitals`);
       setHospitals(hospitalsRes.data);
 
       // Fetch matches
-      const matchesRes = await axios.get('http://localhost:5000/admin/matches');
+      const matchesRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/matches`);
       setMatches(matchesRes.data);
 
 
 
       // Fetch blood inventory
-      const inventoryRes = await axios.get('http://localhost:5000/admin/blood-inventory');
+      const inventoryRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/blood-inventory`);
       setBloodInventory(inventoryRes.data);
 
       // Fetch plasma inventory
       try {
-        const plasmaRes = await axios.get('http://localhost:5000/admin/plasma-inventory');
+        const plasmaRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/plasma-inventory`);
         setPlasmaInventory(plasmaRes.data);
         // Calculate total plasma stock and alerts
         const totalPlasmaStock = plasmaRes.data.reduce((total, item) => total + (item.unitsAvailable || 0), 0);
@@ -175,17 +175,17 @@ const AdminDashboard = () => {
           break;
         case 'delete':
           if (window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
-            await axios.delete(`http://localhost:5000/admin/users/${userId}`);
+            await axios.delete(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/users/${userId}`);
             await fetchAdminData(); // Refresh data
             alert('User deleted successfully');
           }
           break;
         case 'activate':
-          await axios.patch(`http://localhost:5000/admin/users/${userId}`, { status: 'active' });
+          await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/users/${userId}`, { status: 'active' });
           await fetchAdminData();
           break;
         case 'deactivate':
-          await axios.patch(`http://localhost:5000/admin/users/${userId}`, { status: 'inactive' });
+          await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/users/${userId}`, { status: 'inactive' });
           await fetchAdminData();
           break;
       }
@@ -207,7 +207,7 @@ const AdminDashboard = () => {
       const hospitalData = { ...newHospital };
       delete hospitalData.verified;
 
-      await axios.post('http://localhost:5000/admin/hospitals', hospitalData);
+      await axios.post(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/hospitals`, hospitalData);
       setNewHospital({
         name: '',
         address: '',
@@ -228,7 +228,7 @@ const AdminDashboard = () => {
 
   const handleVerifyHospital = async (hospitalId, verified) => {
     try {
-      await axios.patch(`http://localhost:5000/admin/hospitals/${hospitalId}/verify`, { verified });
+      await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/hospitals/${hospitalId}/verify`, { verified });
       await fetchAdminData(); // Refresh hospitals list
       alert(`Hospital ${verified ? 'verified' : 'unverified'} successfully`);
     } catch (error) {
@@ -240,7 +240,7 @@ const AdminDashboard = () => {
   const handleDeleteHospital = async (hospitalId) => {
     if (window.confirm('Are you sure you want to delete this hospital? This action cannot be undone.')) {
       try {
-        await axios.delete(`http://localhost:5000/admin/hospitals/${hospitalId}`);
+        await axios.delete(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/hospitals/${hospitalId}`);
         await fetchAdminData(); // Refresh hospitals list
         alert('Hospital deleted successfully');
       } catch (error) {
@@ -257,7 +257,7 @@ const AdminDashboard = () => {
       switch (action) {
         case 'complete':
           if (window.confirm('Are you sure you want to mark this match as completed?')) {
-            await axios.patch(`http://localhost:5000/admin/matches/${matchId}`, { status: 'completed' });
+            await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/matches/${matchId}`, { status: 'completed' });
             await fetchAdminData(); // Refresh matches list
             alert('Match marked as completed successfully');
           }

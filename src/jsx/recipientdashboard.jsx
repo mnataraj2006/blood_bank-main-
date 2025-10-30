@@ -72,12 +72,12 @@ const RecipientDashboard = () => {
   const userId = storedUser.id;
 
   // Fetch recipient profile
-  axios.get(`http://localhost:5000/api/recipients/${userId}`)
+  axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/api/recipients/${userId}`)
     .then((res) => setRecipientProfile(res.data))
     .catch((err) => console.error("❌ Error fetching profile:", err));
 
   // Fetch all requests once
-  axios.get(`http://localhost:5000/requests/${userId}`)
+  axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/${userId}`)
     .then((res) => {
       const allRequests = res.data;
       console.log("Fetched requests:", allRequests); // Added debug log
@@ -95,7 +95,7 @@ const RecipientDashboard = () => {
     });
 
   // Fetch donor responses
-  axios.get(`http://localhost:5000/responses/${userId}`)
+  axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/responses/${userId}`)
     .then((res) => setDonorResponses(res.data))
     .catch((err) => console.error("❌ Error fetching donor responses:", err));
 }, []);
@@ -151,7 +151,7 @@ const RecipientDashboard = () => {
   const handleAcceptResponse = async (responseId) => {
     setProcessingResponse(responseId);
     try {
-      const response = await axios.patch(`http://localhost:5000/responses/${responseId}`, {
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/responses/${responseId}`, {
         responseStatus: 'accepted'
       });
       if (response.data && response.data.message) {
@@ -162,7 +162,7 @@ const RecipientDashboard = () => {
       // Refresh responses
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.id) {
-        const res = await axios.get(`http://localhost:5000/responses/${storedUser.id}`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/responses/${storedUser.id}`);
         setDonorResponses(res.data);
       }
     } catch (error) {
@@ -176,14 +176,14 @@ const RecipientDashboard = () => {
   const handleDeclineResponse = async (responseId) => {
     setProcessingResponse(responseId);
     try {
-      const response = await axios.patch(`http://localhost:5000/responses/${responseId}`, {
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/responses/${responseId}`, {
         responseStatus: 'declined'
       });
       alert(response.data.message);
       // Refresh responses
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.id) {
-        const res = await axios.get(`http://localhost:5000/responses/${storedUser.id}`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/responses/${storedUser.id}`);
         setDonorResponses(res.data);
       }
     } catch (error) {

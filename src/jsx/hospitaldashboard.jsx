@@ -105,19 +105,19 @@ const HospitalDashboard = () => {
       const token = userData.token;
 
       // Fetch appointments
-      const appointmentsRes = await axios.get('http://localhost:5000/hospital/my-appointments', {
+      const appointmentsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/hospital/my-appointments`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAppointments(appointmentsRes.data);
 
       // Fetch blood stock
-      const stockRes = await axios.get('http://localhost:5000/hospital/stock', {
+      const stockRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/hospital/stock`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBloodStock(stockRes.data);
 
       // Fetch plasma stock
-      const plasmaRes = await axios.get('http://localhost:5000/hospital/plasma-stock', {
+      const plasmaRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/hospital/plasma-stock`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setPlasmaStock(plasmaRes.data);
@@ -204,7 +204,7 @@ const HospitalDashboard = () => {
       const userData = JSON.parse(localStorage.getItem('user'));
       const token = userData.token;
 
-      const response = await axios.patch(`http://localhost:5000/hospital/appointments/${appointmentId}/status`, {
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/hospital/appointments/${appointmentId}/status`, {
         status: newStatus,
         notes,
         hospitalId: userData.hospitalId

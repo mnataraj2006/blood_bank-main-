@@ -12,3 +12,12 @@
 - [x] Integrate plasma expiry reminders with email notifications
 - [x] Add manual trigger endpoint for plasma expiry reminders
 - [x] Add CRUD endpoints for plasma inventory management
+
+# TODO: Deploy to Render
+
+- [x] Update render.yaml files with correct service names and URLs
+- [x] Replace localhost URLs in frontend JSX files with production URLs
+- [x] Update vite.config.js CSP to allow production domain
+- [x] Update backend CORS to allow production frontend URL
+- [x] Update OAuth redirect URLs to use production frontend URL
+- [x] Verify all URLs are correctly updated for production deployment

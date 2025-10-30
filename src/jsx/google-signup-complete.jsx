@@ -105,7 +105,7 @@ const GoogleSignupComplete = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/auth/google/complete-signup", {
+      const response = await fetch("${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/auth/google/complete-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

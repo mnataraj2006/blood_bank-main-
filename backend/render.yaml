@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: blood-bank-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        value: mongodb+srv://2312031:nataraj2006@cluster0.al6c44h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: JWT_SECRET
+        value: lifeshare-jwt-secret-2024-secure-key-256bit
+      - key: REFRESH_TOKEN_SECRET
+        value: lifeshare-refresh-token-secret-2024-secure-key-256bit
+      - key: ADMIN_EMAIL
+        value: admin@lifeshare.com
+      - key: ADMIN_PASSWORD_HASH
+        value: 6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b
+      - key: GOOGLE_CLIENT_ID
+        value: 61020051753-ok7ogsfv3rhbgbfbb8bkc0ou86dr79c8.apps.googleusercontent.com
+      - key: GOOGLE_CLIENT_SECRET
+        value: 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
+      - key: FACEBOOK_APP_ID
+        sync: false
+      - key: FACEBOOK_APP_SECRET
+        sync: false
+      - key: EMAIL_USER
+        value: n8531868631@gmail.com
+      - key: EMAIL_PASS
+        value: ctuvyfjszrjbckxe

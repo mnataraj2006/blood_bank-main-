@@ -22,12 +22,12 @@ const RecipientHistory = () => {
     const userId = storedUser.id;
 
     // Fetch recipient profile
-    axios.get(`http://localhost:5000/api/recipients/${userId}`)
+    axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/api/recipients/${userId}`)
       .then((res) => setRecipientProfile(res.data))
       .catch((err) => console.error("❌ Error fetching profile:", err));
 
     // Fetch all requests
-    axios.get(`http://localhost:5000/requests/${userId}`)
+    axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/${userId}`)
       .then((res) => {
         // Display all requests in history
         setRequestHistory(res.data);

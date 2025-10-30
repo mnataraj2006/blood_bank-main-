@@ -21,7 +21,7 @@ const Notifications = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/notifications/${storedUser.id}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${storedUser.id}`);
       setNotifications(response.data);
       setError(null);
     } catch (err) {
@@ -34,7 +34,7 @@ const Notifications = () => {
 
   const markAsRead = async (notificationId) => {
     try {
-      await axios.patch(`http://localhost:5000/notifications/${notificationId}/read`);
+      await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${notificationId}/read`);
       setNotifications(prev =>
         prev.map(notif =>
           notif._id === notificationId ? { ...notif, isRead: true } : notif
@@ -50,7 +50,7 @@ const Notifications = () => {
       const unreadNotifications = notifications.filter(n => !n.isRead);
       await Promise.all(
         unreadNotifications.map(notif =>
-          axios.patch(`http://localhost:5000/notifications/${notif._id}/read`)
+          axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${notif._id}/read`)
         )
       );
       setNotifications(prev =>
@@ -64,7 +64,7 @@ const Notifications = () => {
   const deleteNotification = async (notificationId, e) => {
     e.stopPropagation();
     try {
-      await axios.delete(`http://localhost:5000/notifications/${notificationId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${notificationId}`);
       setNotifications(prev => prev.filter(notif => notif._id !== notificationId));
     } catch (err) {
       console.error('Error deleting notification:', err);

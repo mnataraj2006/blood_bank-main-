@@ -34,7 +34,7 @@ const LoginPage = () => {
         const { email, name, id: googleId } = userInfo;
 
         // Send Google login data to backend
-        const loginResponse = await fetch("http://localhost:5000/auth/google-login", {
+        const loginResponse = await fetch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/auth/google-login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -90,8 +90,8 @@ const LoginPage = () => {
     try {
       // Determine which endpoint to use
       const endpoint = isAdminLogin ?
-        "http://localhost:5000/admin/login" :
-        "http://localhost:5000/login";
+        `${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/admin/login` :
+        `${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/login`;
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -163,7 +163,7 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/auth/set-password", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/auth/set-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

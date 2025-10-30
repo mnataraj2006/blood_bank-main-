@@ -35,7 +35,7 @@ const UpdateProfile = () => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:5000/user/${storedUser.id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/user/${storedUser.id}`);
         setProfile(response.data);
         setUserRole(response.data.role || 'recipient');
         setLoading(false);
@@ -46,7 +46,7 @@ const UpdateProfile = () => {
 
       // Fetch donation count
       try {
-        const countResponse = await axios.get(`http://localhost:5000/donations/count/${storedUser.id}`);
+        const countResponse = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/donations/count/${storedUser.id}`);
         setDonationCount(countResponse.data.count);
       } catch (error) {
         console.error('Error fetching donation count:', error);
@@ -87,7 +87,7 @@ const UpdateProfile = () => {
 
     try {
       const storedUser = JSON.parse(localStorage.getItem('user'));
-      await axios.patch(`http://localhost:5000/user/${storedUser.id}`, profile);
+      await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/user/${storedUser.id}`, profile);
       alert('Profile updated successfully!');
       navigate('/dashboard'); // or wherever
     } catch (error) {

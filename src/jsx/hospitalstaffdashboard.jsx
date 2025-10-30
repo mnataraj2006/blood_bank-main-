@@ -76,19 +76,19 @@ const HospitalStaffDashboard = () => {
       setUser(userData);
 
       // Fetch upcoming appointments
-      const appointmentsRes = await axios.get(`http://localhost:5000/hospital-staff/appointments/upcoming/${userData.id}`, {
+      const appointmentsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/hospital-staff/appointments/upcoming/${userData.id}`, {
         headers: { Authorization: `Bearer ${userData.token}` }
       });
       setAppointments(appointmentsRes.data);
 
       // Fetch blood stock
-      const stockRes = await axios.get('http://localhost:5000/staff/stock', {
+      const stockRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/staff/stock`, {
         headers: { Authorization: `Bearer ${userData.token}` }
       });
       setBloodStock(stockRes.data);
 
       // Fetch notifications
-      const notificationsRes = await axios.get('http://localhost:5000/staff/notifications', {
+      const notificationsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/staff/notifications`, {
         headers: { Authorization: `Bearer ${userData.token}` }
       });
       setNotifications(notificationsRes.data);
@@ -106,7 +106,7 @@ const HospitalStaffDashboard = () => {
   const fetchNotifications = async () => {
     try {
       const userData = JSON.parse(localStorage.getItem('user'));
-      const notificationsRes = await axios.get('http://localhost:5000/staff/notifications', {
+      const notificationsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/staff/notifications`, {
         headers: { Authorization: `Bearer ${userData.token}` }
       });
       setNotifications(notificationsRes.data);
@@ -150,7 +150,7 @@ const HospitalStaffDashboard = () => {
   const handleMarkDonated = async (appointmentId) => {
     try {
       const userData = JSON.parse(localStorage.getItem('user'));
-      await axios.patch(`http://localhost:5000/staff/appointments/${appointmentId}/confirm`, {
+      await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/staff/appointments/${appointmentId}/confirm`, {
         staffId: userData.id,
         status: 'donated',
         notes: ''
@@ -170,7 +170,7 @@ const HospitalStaffDashboard = () => {
   const handleMarkMissed = async (appointmentId) => {
     try {
       const userData = JSON.parse(localStorage.getItem('user'));
-      await axios.patch(`http://localhost:5000/staff/appointments/${appointmentId}/confirm`, {
+      await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/staff/appointments/${appointmentId}/confirm`, {
         staffId: userData.id,
         status: 'missed',
         notes: ''
@@ -190,7 +190,7 @@ const HospitalStaffDashboard = () => {
   const handleStockAdjustment = async (bloodGroup, adjustment) => {
     try {
       const userData = JSON.parse(localStorage.getItem('user'));
-      await axios.post('http://localhost:5000/staff/stock/adjust', {
+      await axios.post(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/staff/stock/adjust`, {
         bloodGroup,
         adjustment,
         reason: 'Manual adjustment by staff'

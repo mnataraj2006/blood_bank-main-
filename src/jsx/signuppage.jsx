@@ -50,7 +50,7 @@ const LifeShareSignup= () => {
         const { email, name, id: googleId } = userInfo;
 
         // Check if user already exists
-        const checkResponse = await fetch("http://localhost:5000/auth/google/check-user", {
+        const checkResponse = await fetch("${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/auth/google/check-user", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
@@ -130,7 +130,7 @@ const LifeShareSignup= () => {
       return;
     }
 
-    const res = await fetch("http://localhost:5000/signup", {
+    const res = await fetch("${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
