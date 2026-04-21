@@ -29,7 +29,7 @@ export default function FindDonor() {
       if (bg) params.append("bg", bg);
       if (city) params.append("city", city);
       if (state) params.append("state", state);
-      const res = await fetch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/donors?${params.toString()}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/donors?${params.toString()}`);
       const data = await res.json();
       const donorList = Array.isArray(data) ? data : [];
       setDonors(donorList);

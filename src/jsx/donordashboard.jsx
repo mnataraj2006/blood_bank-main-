@@ -48,27 +48,27 @@ const DonorDashboard = () => {
     }
 
     // Fetch donation count
-    axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/donations/count/${userId}`)
+    axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/donations/count/${userId}`)
       .then(res => setDonationCount(res.data.count))
       .catch(() => {});
 
     // Fetch donation history
-    axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/donations/history/${userId}`)
+    axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/donations/history/${userId}`)
       .then(res => setDonationHistory(res.data))
       .catch(() => {});
 
     // Fetch blood requests matching donor's blood group
-    axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/donor/${userId}`)
+    axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/donor/${userId}`)
       .then(res => setBloodRequests(res.data))
       .catch(() => {});
 
     // Fetch all pending blood requests
-    axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/all/pending`)
+    axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/all/pending`)
       .then(res => setAllBloodRequests(res.data))
       .catch(() => {});
 
     // Fetch real appointments for the user
-    axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/appointments/${userId}`)
+    axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/appointments/${userId}`)
       .then(res => setAppointments(res.data))
       .catch(() => {});
 
@@ -81,12 +81,12 @@ const DonorDashboard = () => {
     }
     setResponding(requestId);
     try {
-      const response = await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/${requestId}/accept`, {
+      const response = await axios.patch(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/${requestId}/accept`, {
         donorId: donorProfile.id
       });
       alert(response.data.message);
       // Refresh the blood requests list
-      axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/donor/${donorProfile.id}`)
+      axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/requests/donor/${donorProfile.id}`)
         .then(res => setBloodRequests(res.data))
         .catch(() => {});
     } catch (error) {

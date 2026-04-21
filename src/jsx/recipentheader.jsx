@@ -48,18 +48,18 @@ const DashboardHeader = ({
         if (storedUser && storedUser.id) {
           // Fetch profile image
           try {
-            const profileResponse = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/user/${storedUser.id}`);
+            const profileResponse = await axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/user/${storedUser.id}`);
             setProfileImage(profileResponse.data.profileImage || '');
           } catch (error) {
             console.error('Error fetching profile image:', error);
           }
 
           // Fetch notifications
-          const notificationsResponse = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${storedUser.id}`);
+          const notificationsResponse = await axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${storedUser.id}`);
           setNotifications(notificationsResponse.data);
 
           // Fetch unread count
-          const unreadResponse = await axios.get(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${storedUser.id}/unread-count`);
+          const unreadResponse = await axios.get(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${storedUser.id}/unread-count`);
           setUnreadCount(unreadResponse.data.count);
         }
       } catch (error) {
@@ -108,7 +108,7 @@ const DashboardHeader = ({
   const markAsRead = async (notificationId) => {
     try {
       // Call API to mark as read
-      await axios.patch(`${process.env.REACT_APP_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${notificationId}/read`);
+      await axios.patch(`${import.meta.env.VITE_API_URL || 'https://blood-bank-backend.onrender.com'}/notifications/${notificationId}/read`);
       
       // Update local state
       setNotifications(prev => 
