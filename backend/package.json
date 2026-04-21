@@ -16,6 +16,7 @@
     "google-auth-library": "^10.6.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.3",
+    "node-cron": "^4.2.1",
     "nodemailer": "^6.9.7",
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
