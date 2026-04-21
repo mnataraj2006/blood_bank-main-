@@ -30,7 +30,3 @@ services:
         sync: false
       - key: REFRESH_TOKEN_SECRET
         sync: false
-    routes:
-      - type: rewrite
-        source: /api/*
-        destination: /*
