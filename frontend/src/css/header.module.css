@@ -1,143 +1,127 @@
-/* Premium Header UI */
+/* header.module.css — Premium Public Header */
+
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.85));
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-color, #E2E8F0);
-  transition: all 0.3s ease;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--space-8);
+  transition: background var(--ease-normal), box-shadow var(--ease-normal);
 }
 
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
+.headerScrolled {
+  background: rgba(15, 23, 42, 0.97);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 1rem 2rem;
-}
-
-.logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
   text-decoration: none;
 }
-
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--primary-color, #E11D48), var(--secondary-color, #0ea5e9));
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
+.brandIcon {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--primary), #C62828);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(229,57,53,0.35);
+  flex-shrink: 0;
 }
-
-.logo-text {
-  font-size: 1.5rem;
+.brandText {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
   font-weight: 800;
-  font-family: var(--font-heading, 'Outfit', sans-serif);
-  background: linear-gradient(135deg, var(--text-primary, #0F172A), var(--primary-color, #E11D48));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--text-primary);
   letter-spacing: -0.02em;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: var(--space-1);
 }
-
-.nav a {
-  text-decoration: none;
-  color: var(--text-secondary, #475569);
-  font-size: 1rem;
+.navLink {
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
   font-weight: 500;
-  transition: all 0.2s ease;
-  position: relative;
+  color: var(--text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: all var(--ease-fast);
+  min-height: 36px;
 }
+.navLink:hover { color: var(--text-primary); background: var(--border); }
 
-.nav a:hover {
-  color: var(--primary-color, #E11D48);
-}
-
-.nav a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--primary-color, #E11D48);
-  transition: width 0.3s ease;
-}
-
-.nav a:hover::after {
-  width: 100%;
-}
-
-.auth-buttons {
+.actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-3);
 }
-
-.login-btn {
+.loginBtn {
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
   background: transparent;
-  color: var(--text-primary, #0F172A);
-  padding: 0.6rem 1.2rem;
-  border-radius: var(--radius-full, 9999px);
-  border: 1px solid var(--border-color, #E2E8F0);
-  font-weight: 600;
+  border: 1.5px solid var(--border);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--ease-normal);
+  min-height: 38px;
 }
-
-.login-btn:hover {
-  background: var(--bg-color, #F8FAFC);
-  border-color: var(--text-primary, #0F172A);
-}
-
-.sign-up-btn {
-  background: var(--primary-color, #E11D48);
-  color: white;
-  padding: 0.6rem 1.5rem;
-  border-radius: var(--radius-full, 9999px);
+.loginBtn:hover { border-color: var(--border-hover); background: var(--card-bg); }
+.signupBtn {
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), #C62828);
   border: none;
-  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.2);
+  transition: all var(--ease-bounce);
+  box-shadow: 0 2px 12px rgba(229,57,53,0.35);
+  min-height: 38px;
 }
+.signupBtn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(229,57,53,0.5); }
 
-.sign-up-btn:hover {
-  background: var(--primary-hover, #BE123C);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(225, 29, 72, 0.3);
+.mobileMenuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--ease-fast);
 }
+.mobileMenuBtn:hover { background: var(--card-bg); color: var(--text-primary); }
 
-/* Responsive */
-@media (max-width: 992px) {
-  .nav {
-    display: none; /* In a real app, add a hamburger menu here */
-  }
-}
-
-@media (max-width: 600px) {
-  .header-container {
-    padding: 1rem;
-  }
-  .logo-text {
-    font-size: 1.25rem;
-  }
-  .login-btn {
-    display: none;
-  }
+@media (max-width: 768px) {
+  .nav { display: none; }
+  .mobileMenuBtn { display: flex; }
+  .header { padding: 0 var(--space-5); }
 }

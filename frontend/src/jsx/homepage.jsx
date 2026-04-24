@@ -48,8 +48,10 @@ export default function Homepage() {
         <div className={styles.heroImageWrapper}>
           {/* A glassmorphism abstract element acting as an image placeholder */}
           <div className={`${styles.glassCard} ${styles.floatingCard}`}>
-            <Droplet size={64} className={styles.dropIcon} />
-            <div className={styles.pulseRing}></div>
+            <div className={styles.iconContainer}>
+              <Droplet size={64} className={styles.dropIcon} />
+              <div className={styles.pulseRing}></div>
+            </div>
             <h3>Urgent Request</h3>
             <p>O- Blood needed in Apollo Hospital</p>
             <button className={styles.smallBtn}>Donate Now</button>
