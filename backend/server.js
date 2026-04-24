@@ -26,9 +26,13 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? [process.env.FRONTEND_URL || 'https://blood-bank-frontend.onrender.com'] // Production frontend URL from env
-    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (origin.includes('localhost') || origin.includes('vercel.app') || origin.includes('onrender.com') || origin === process.env.FRONTEND_URL) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
 app.use(express.json());
