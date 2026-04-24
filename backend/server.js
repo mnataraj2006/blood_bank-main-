@@ -27,7 +27,7 @@ dotenv.config();
 const app = express();
 app.use(cors({
   origin: process.env.NODE_ENV === 'production'
-    ? ['https://blood-bank-frontend.onrender.com'] // Production frontend URL
+    ? [process.env.FRONTEND_URL || 'https://blood-bank-frontend.onrender.com'] // Production frontend URL from env
     : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
   credentials: true
 }));
@@ -262,7 +262,7 @@ app.get('/auth/google/callback',
 
     // Redirect to frontend with tokens
     const frontendUrl = process.env.NODE_ENV === 'production'
-      ? 'https://blood-bank-frontend.onrender.com'
+      ? (process.env.FRONTEND_URL || 'https://blood-bank-frontend.onrender.com')
       : 'http://localhost:3000';
     res.redirect(`${frontendUrl}/oauth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}&user=${encodeURIComponent(JSON.stringify({
       id: req.user._id,
@@ -284,7 +284,7 @@ app.get('/auth/facebook/callback',
     const refreshToken = generateRefreshToken(req.user);
 
     const frontendUrl = process.env.NODE_ENV === 'production'
-      ? 'https://blood-bank-frontend.onrender.com'
+      ? (process.env.FRONTEND_URL || 'https://blood-bank-frontend.onrender.com')
       : 'http://localhost:3000';
     res.redirect(`${frontendUrl}/oauth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}&user=${encodeURIComponent(JSON.stringify({
       id: req.user._id,
